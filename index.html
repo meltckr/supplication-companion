@@ -1,286 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seven-Line Supplication Companion</title>
-  <style>
-    :root {
-      --bg: #0b0b10;
-      --bg2: #11111a;
-      --panel: rgba(20, 20, 30, 0.88);
-      --panel2: rgba(255,255,255,0.04);
-      --text: #f5f4fb;
-      --muted: #b8b5c9;
-      --accent: #8f7dff;
-      --accent2: #b6abff;
-      --border: rgba(255,255,255,0.08);
-      --shadow: 0 20px 50px rgba(0,0,0,0.35);
-      --radius: 22px;
-      --active: rgba(143,125,255,0.18);
-      --activeBorder: rgba(182,171,255,0.65);
-    }
-
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top, rgba(143,125,255,0.18), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(182,171,255,0.08), transparent 22%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-    }
-
-    .wrap { max-width: 980px; margin: 0 auto; padding: 20px 14px 56px; }
-    .hero { text-align: center; padding: 20px 8px 10px; }
-    .eyebrow {
-      display: inline-block; padding: 6px 12px; border-radius: 999px;
-      border: 1px solid var(--border); background: rgba(255,255,255,0.04);
-      color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
-    }
-    h1 { margin: 14px 0 10px; font-size: clamp(30px, 5vw, 50px); line-height: 1.05; letter-spacing: -0.03em; }
-    .hero p { margin: 0 auto; max-width: 720px; color: var(--muted); font-size: 15px; line-height: 1.55; }
-
-    .panel {
-      margin-top: 16px; background: var(--panel); border: 1px solid var(--border);
-      backdrop-filter: blur(14px); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px;
-    }
-
-    .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .tab, button {
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      color: var(--text); border-radius: 16px; padding: 12px 14px;
-      font-size: 14px; font-weight: 800; cursor: pointer; min-height: 48px;
-    }
-    .tab.active { background: linear-gradient(180deg, var(--accent2), var(--accent)); border-color: transparent; color: #fff; }
-    .primary { background: linear-gradient(180deg, var(--accent2), var(--accent)); border-color: transparent; color: #fff; }
-    .ghost { background: transparent; }
-
-    .section { display: none; }
-    .section.active { display: block; }
-
-    .prayer { display: grid; gap: 12px; margin-top: 14px; }
-    .line {
-      border: 1px solid var(--border); border-radius: 18px; padding: 14px;
-      background: rgba(255,255,255,0.03);
-      transition: background .18s ease, border-color .18s ease, transform .18s ease;
-    }
-    .line.active { background: var(--active); border-color: var(--activeBorder); transform: translateY(-1px); }
-    .tib { font-size: clamp(21px, 3.8vw, 31px); font-weight: 900; line-height: 1.28; }
-    .eng { margin-top: 8px; color: var(--muted); font-size: 15px; line-length: 1.5; }
-    .hiddenLine {
-      color: transparent;
-      background: linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08));
-      border-radius: 10px;
-      user-select: none;
-    }
-    .wordHidden {
-      color: transparent;
-      background: linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08));
-      border-radius: 8px;
-      padding: 0 0.18em;
-      margin-right: 0.1em;
-      user-select: none;
-    }
-
-    .hint { color: var(--muted); font-size: 13px; line-height: 1.55; margin-top: 12px; }
-    .counter { margin-top: 12px; color: var(--muted); font-size: 13px; }
-
-    @media (max-width: 760px) { .tabs { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 560px) { .tabs { grid-template-columns: 1fr; } }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seven-Line Supplication Companion</title>
+<style>
+:root {
+  --bg: #0b0b10;
+  --bg2: #11111a;
+  --panel: rgba(20, 20, 30, 0.88);
+  --panel2: rgba(255,255,255,0.04);
+  --text: #f5f4fb;
+  --muted: #b8b5c9;
+  --accent: #8f7dff;
+  --accent2: #b6abff;
+  --border: rgba(255,255,255,0.08);
+  --shadow: 0 20px 50px rgba(0,0,0,0.35);
+  --radius: 22px;
+  --active: rgba(143,125,255,0.18);
+  --activeBorder: rgba(182,171,255,0.65);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(143,125,255,0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(182,171,255,0.08), transparent 22%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 20px 14px 56px; }
+.hero { text-align: center; padding: 20px 8px 10px; }
+.eyebrow { display: inline-block; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+h1 { margin: 14px 0 10px; font-size: clamp(30px, 5vw, 50px); line-height: 1.05; letter-spacing: -0.03em; }
+.hero p { margin: 0 auto; max-width: 720px; color: var(--muted); font-size: 15px; line-height: 1.55; }
+.player { margin: 14px auto 0; max-width: 700px; }
+.player audio { width: 100%; }
+.player .controls { display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:10px; color: var(--muted); font-size:13px; }
+.panel { margin-top: 16px; background: var(--panel); border: 1px solid var(--border); backdrop-filter: blur(14px); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px; }
+.tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.tab, button { border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); color: var(--text); border-radius: 16px; padding: 12px 14px; font-size: 14px; font-weight: 800; cursor: pointer; min-height: 48px; }
+.tab.active { background: linear-gradient(180deg, var(--accent2), var(--accent)); border-color: transparent; color: #fff; }
+.primary { background: linear-gradient(180deg, var(--accent2), var(--accent)); border-color: transparent; color: #fff; }
+.ghost { background: transparent; }
+.section { display: none; }
+.section.active { display: block; }
+.prayer { display: grid; gap: 12px; margin-top: 14px; }
+.line { border: 1px solid var(--border); border-radius: 18px; padding: 14px; background: rgba(255,255,255,0.03); transition: background .18s ease, border-color .18s ease, transform .18s ease; }
+.line.active { background: var(--active); border-color: var(--activeBorder); transform: translateY(-1px); }
+.tib { font-size: clamp(21px, 3.8vw, 31px); font-weight: 900; line-height: 1.28; }
+.eng { margin-top: 8px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.hiddenLine { color: transparent; background: linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08)); border-radius: 10px; user-select: none; }
+.wordHidden { color: transparent; background: linear-gradient(90deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08)); border-radius: 8px; padding: 0 0.18em; margin-right: 0.1em; user-select: none; }
+.hint { color: var(--muted); font-size: 13px; line-height: 1.55; margin-top: 12px; }
+.counter { margin-top: 12px; color: var(--muted); font-size: 13px; }
+@media (max-width: 760px) { .tabs { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .tabs { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <div class="eyebrow">Practice Companion</div>
-      <h1>Seven-Line Supplication</h1>
-      <p>Pick a mode, tap through, and let the prayer get into your bones.</p>
-    </div>
-
-    <div class="panel">
-      <div class="tabs">
-        <div class="tab active" data-tab="read">Read</div>
-        <div class="tab" data-tab="line">Line Reveal</div>
-        <div class="tab" data-tab="words">Words Reveal</div>
-        <div class="tab" data-tab="recall">Recall</div>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Practice Companion</div>
+    <h1>Seven-Line Supplication</h1>
+    <p>Pick a mode, tap through, and let it sink in. Audio player below.</p>
+    <div class="player">
+      <audio id="chantPlayer" controls preload="none">
+        <source src="7-Line%20Supplication.WAV" type="audio/wav" />
+        <source src="chant.mp3" type="audio/mpeg" />
+        Your browser doesn’t support the audio element.
+      </audio>
+      <div class="controls">
+        <label><input type="checkbox" id="loopToggle" checked /> Loop</label>
       </div>
-
-      <div id="read" class="section active"></div>
-      <div id="line" class="section"></div>
-      <div id="words" class="section"></div>
-      <div id="recall" class="section">
-        <div class="hint">Press “Next” to cycle lines. Say it out loud before you reveal.</div>
-        <div id="recallCard"></div>
-        <div class="counter" id="recallCounter"></div>
-        <div class="hint">Recall is the whole game. Don’t aim for perfect—aim for consistent.</div>
-      </div>
-
-      <div class="hint">
-        Tip: in “Line Reveal” and “Words Reveal”, click/tap to reveal.
-      </div>
-      <div class="counter" id="practiceCounter"></div>
     </div>
   </div>
 
-  <script>
-    const lines = [
-      {
-        tib: "Ogyen yül-gyi nub-jang tsam",
-        eng: "In the northwest land of Oḍḍiyāna,"
-      },
-      {
-        tib: "Pema gesar dongpo la",
-        eng: "On the pollen heart of a lotus,"
-      },
-      {
-        tib: "Yatsen chog kyi ngam-gya-pe",
-        eng: "Unsurpassed in miraculous activity,"
-      },
-      {
-        tib: "Dorje changgi drub ney tse",
-        eng: "You are known as the lotus-born,"
-      },
-      {
-        tib: "Khandro tuk tik kyab kyi kor",
-        eng: "Surrounded by retinues of dakinis,"
-      },
-      {
-        tib: "Khyen kyi je su dak drub kyang",
-        eng: "Following you I practice,"
-      },
-      {
-        tib: "Jin gyi lob tu sol",
-        eng: "Please grant your blessing."
-      }
-    ];
+  <div class="panel">
+    <div class="tabs">
+      <div class="tab active" data-tab="read">Read</div>
+      <div class="tab" data-tab="line">Line Reveal</div>
+      <div class="tab" data-tab="words">Words Reveal</div>
+      <div class="tab" data-tab="recall">Recall</div>
+    </div>
 
-    let practiceCount = { line: 0, words: 0, recall: 0 };
+    <div id="read" class="section active"></div>
+    <div id="line" class="section"></div>
+    <div id="words" class="section"></div>
+    <div id="recall" class="section">
+      <div class="hint">Press “Next” to cycle lines. Say it out loud before you reveal.</div>
+      <div id="recallCard"></div>
+      <div class="counter" id="recallCounter"></div>
+      <div class="hint">Recall is the whole game. Don’t aim for perfect—aim for consistent.</div>
+    </div>
 
-    const tabs = document.querySelectorAll(".tab");
-    const sections = document.querySelectorAll(".section");
-    const practiceCounter = document.getElementById("practiceCounter");
-    const recallCard = document.getElementById("recallCard");
-    const recallCounter = document.getElementById("recallCounter");
+    <div class="hint">Tip: in “Line Reveal” and “Words Reveal”, click/tap to reveal.</div>
+    <div class="counter" id="practiceCounter"></div>
+  </div>
+</div>
 
-    function setCounter(mode) {
-      practiceCounter.textContent =
-        mode === "read"
-          ? ""
-          : `${mode[0].toUpperCase()}${mode.slice(1)} reps: ${practiceCount[mode]}`;
-    }
+<script>
+const lines = [
+  { tib: "Ogyen yül-gyi nub-jang tsam", eng: "In the northwest land of Oḍḍiyāna," },
+  { tib: "Pema gesar dongpo la", eng: "On the pollen heart of a lotus," },
+  { tib: "Yatsen chog kyi ngam-gya-pe", eng: "Unsurpassed in miraculous activity," },
+  { tib: "Dorje changgi drub ney tse", eng: "You are known as the lotus-born," },
+  { tib: "Khandro tuk tik kyab kyi kor", eng: "Surrounded by retinues of dakinis," },
+  { tib: "Khyen kyi je su dak drub kyang", eng: "Following you I practice," },
+  { tib: "Jin gyi lob tu sol", eng: "Please grant your blessing." }
+];
 
-    function render(mode) {
-      sections.forEach(s => s.classList.remove("active"));
-      const section = document.getElementById(mode);
-      section.classList.add("active");
-      setCounter(mode);
+let practiceCount = { line: 0, words: 0, recall: 0 };
+const tabs = document.querySelectorAll('.tab');
+const sections = document.querySelectorAll('.section');
+const practiceCounter = document.getElementById('practiceCounter');
+const recallCard = document.getElementById('recallCard');
+const recallCounter = document.getElementById('recallCounter');
+const player = document.getElementById('chantPlayer');
+const loopToggle = document.getElementById('loopToggle');
+loopToggle.addEventListener('change', () => { player.loop = loopToggle.checked; });
+player.loop = loopToggle.checked;
 
-      if (mode === "read") return renderLines(section, "read");
-      if (mode === "line") return renderLines(section, "line");
-      if (mode === "words") return renderLines(section, "words");
-      if (mode === "recall") {
-        if (!section.dataset.ready) {
-          const controls = document.createElement("div");
-          controls.className = "controls";
-          controls.style.display = "flex";
-          controls.style.gap = "10px";
-          controls.style.marginTop = "12px";
-          controls.style.flexWrap = "wrap";
-          controls.style.alignItems = "center";
+function setCounter(mode) {
+  practiceCounter.textContent = mode === 'read' ? '' : mode.charAt(0).toUpperCase() + mode.slice(1) + ' reps: ' + practiceCount[mode];
+}
 
-          const next = document.createElement("button");
-          next.className = "primary";
-          next.textContent = "Next";
-          next.onclick = () => { practiceCount.recall++; setCounter("recall"); showRecall(); };
+function render(mode) {
+  sections.forEach(s => s.classList.remove('active'));
+  const section = document.getElementById(mode);
+  section.classList.add('active');
+  setCounter(mode);
 
-          const reveal = document.createElement("button");
-          reveal.className = "ghost";
-          reveal.textContent = "Reveal";
-          reveal.onclick = () => {
-            const tib = recallCard.querySelector(".tib");
-            const eng = recallCard.querySelector(".eng");
-            if (tib) tib.style.visibility = "visible";
-            if (eng) eng.style.visibility = "visible";
-          };
+  if (mode === 'read') return renderLines(section, 'read');
+  if (mode === 'line') return renderLines(section, 'line');
+  if (mode === 'words') return renderLines(section, 'words');
+  if (mode === 'recall') {
+    if (!section.dataset.ready) {
+      const controls = document.createElement('div');
+      controls.style.display = 'flex';
+      controls.style.gap = '10px';
+      controls.style.marginTop = '12px';
+      controls.style.flexWrap = 'wrap';
+      controls.style.alignItems = 'center';
 
-          controls.append(next, reveal);
-          section.appendChild(controls);
-          section.dataset.ready = "1";
-          showRecall(true);
-        }
-        return;
-      }
-    }
+      const next = document.createElement('button');
+      next.className = 'primary';
+      next.textContent = 'Next';
+      next.onclick = () => { practiceCount.recall++; setCounter('recall'); showRecall(); };
 
-    function renderLines(target, mode) {
-      target.innerHTML = "";
-      const prayer = document.createElement("div");
-      prayer.className = "prayer";
-
-      lines.forEach(line => {
-        const card = document.createElement("div");
-        card.className = "line";
-        card.innerHTML = `<div class="tib">${line.tib}</div><div class="eng">${line.eng}</div>`;
-
-        if (mode === "line") {
-          const tib = card.querySelector(".tib");
-          tib.classList.add("hiddenLine");
-          card.onclick = () => {
-            tib.classList.remove("hiddenLine");
-            card.classList.add("active");
-            card.onclick = null;
-          };
-        }
-
-        if (mode === "words") {
-          const tib = card.querySelector(".tib");
-          tib.innerHTML = line.tib
-            .split(" ")
-            .map(w => `<span class="wordHidden">${w}</span>`)
-            .join(" ");
-
-          card.onclick = () => {
-            const hidden = tib.querySelector(".wordHidden");
-            if (hidden) hidden.classList.remove("wordHidden");
-            if (!tib.querySelector(".wordHidden")) card.onclick = null;
-          };
-        }
-
-        prayer.appendChild(card);
-      });
-
-      target.appendChild(prayer);
-      if (mode !== "read") {
-        practiceCount[mode]++;
-        setCounter(mode);
-      }
-    }
-
-    function showRecall(initial) {
-      recallCard.innerHTML = "";
-      const card = document.createElement("div");
-      card.className = "line active";
-
-      const idx = initial ? 0 : Math.floor(Math.random() * lines.length);
-      card.innerHTML = `<div class="tib" style="visibility:hidden">${lines[idx].tib}</div><div class="eng" style="visibility:hidden">${lines[idx].eng}</div>`;
-      recallCard.appendChild(card);
-
-      recallCounter.textContent = `Prompt: Line ${idx + 1} — say it first, then reveal.`;
-    }
-
-    tabs.forEach(tab => {
-      tab.onclick = () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
-        render(tab.dataset.tab);
+      const reveal = document.createElement('button');
+      reveal.className = 'ghost';
+      reveal.textContent = 'Reveal';
+      reveal.onclick = () => {
+        const tib = recallCard.querySelector('.tib');
+        const eng = recallCard.querySelector('.eng');
+        if (tib) tib.style.visibility = 'visible';
+        if (eng) eng.style.visibility = 'visible';
       };
-    });
 
-    render("read");
-  </script>
+      controls.append(next, reveal);
+      section.appendChild(controls);
+      section.dataset.ready = '1';
+      showRecall(true);
+    }
+    return;
+  }
+}
+
+function renderLines(target, mode) {
+  target.innerHTML = '';
+  const prayer = document.createElement('div');
+  prayer.className = 'prayer';
+
+  lines.forEach(line => {
+    const card = document.createElement('div');
+    card.className = 'line';
+    card.innerHTML = '<div class="tib">' + line.tib + '</div><div class="eng">' + line.eng + '</div>';
+
+    if (mode === 'line') {
+      const tib = card.querySelector('.tib');
+      tib.classList.add('hiddenLine');
+      card.onclick = () => {
+        tib.classList.remove('hiddenLine');
+        card.classList.add('active');
+        card.onclick = null;
+      };
+    }
+
+    if (mode === 'words') {
+      const tib = card.querySelector('.tib');
+      tib.innerHTML = line.tib.split(' ').map(w => '<span class="wordHidden">' + w + '</span>').join(' ');
+      card.onclick = () => {
+        const hidden = tib.querySelector('.wordHidden');
+        if (hidden) hidden.classList.remove('wordHidden');
+        if (!tib.querySelector('.wordHidden')) card.onclick = null;
+      };
+    }
+
+    prayer.appendChild(card);
+  });
+
+  target.appendChild(prayer);
+  if (mode !== 'read') { practiceCount[mode]++; setCounter(mode); }
+}
+
+function showRecall(initial) {
+  recallCard.innerHTML = '';
+  const card = document.createElement('div');
+  card.className = 'line active';
+  const idx = initial ? 0 : Math.floor(Math.random() * lines.length);
+
+  const tib = document.createElement('div');
+  tib.className = 'tib';
+  tib.style.visibility = 'hidden';
+  tib.textContent = lines[idx].tib;
+
+  const eng = document.createElement('div');
+  eng.className = 'eng';
+  eng.style.visibility = 'hidden';
+  eng.textContent = lines[idx].eng;
+
+  card.appendChild(tib);
+  card.appendChild(eng);
+  recallCard.appendChild(card);
+  recallCounter.textContent = 'Prompt: Line ' + (idx + 1) + ' — say it first, then reveal.';
+}
+
+tabs.forEach(tab => {
+  tab.onclick = () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    render(tab.dataset.tab);
+  };
+});
+
+render('read');
+</script>
 </body>
 </html>
